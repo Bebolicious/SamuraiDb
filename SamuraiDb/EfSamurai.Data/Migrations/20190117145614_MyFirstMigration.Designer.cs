@@ -4,14 +4,16 @@ using EfSamurai.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EfSamurai.Data.Migrations
 {
     [DbContext(typeof(SamuraiContext))]
-    partial class SamuraiContextModelSnapshot : ModelSnapshot
+    [Migration("20190117145614_MyFirstMigration")]
+    partial class MyFirstMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,7 +52,7 @@ namespace EfSamurai.Data.Migrations
 
                     b.Property<int>("Quotestext");
 
-                    b.Property<int>("SamuraiId");
+                    b.Property<int?>("SamuraiId");
 
                     b.HasKey("Id");
 
@@ -71,11 +73,7 @@ namespace EfSamurai.Data.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("SeccretIdentityId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("SeccretIdentityId");
 
                     b.ToTable("Samurais");
                 });
@@ -99,32 +97,11 @@ namespace EfSamurai.Data.Migrations
                     b.ToTable("SamuraiBattles");
                 });
 
-            modelBuilder.Entity("EfSamurai.Domain.SecretIdentity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("SecretIdentities");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("SeccretIdentities");
-                });
-
             modelBuilder.Entity("EfSamurai.Domain.Quote", b =>
                 {
                     b.HasOne("EfSamurai.Domain.Samurai", "Samurai")
                         .WithMany("Quotes")
-                        .HasForeignKey("SamuraiId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("EfSamurai.Domain.Samurai", b =>
-                {
-                    b.HasOne("EfSamurai.Domain.SecretIdentity", "SeccretIdentity")
-                        .WithMany()
-                        .HasForeignKey("SeccretIdentityId");
+                        .HasForeignKey("SamuraiId");
                 });
 
             modelBuilder.Entity("EfSamurai.Domain.SamuraiBattle", b =>
