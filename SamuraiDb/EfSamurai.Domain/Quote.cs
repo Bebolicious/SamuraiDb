@@ -8,7 +8,7 @@ namespace EfSamurai.Domain
     {
         public int Id { get; set; }
         public int Angerlevel { get; set; }
-        public Quotestext Quotestext { get; set; }
+       // public Quotestext Quotestext { get; set; }
         public Samurai Samurai { get; set; }
         public int SamuraiId { get; set; }
     }
