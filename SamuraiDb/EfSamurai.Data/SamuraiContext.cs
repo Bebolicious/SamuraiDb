@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using EfSamurai.Domain;
 
+
 namespace EfSamurai.Data
 {
     public class SamuraiContext : DbContext
@@ -13,7 +14,9 @@ namespace EfSamurai.Data
         public DbSet<Battle> Battles { get; set; }
         public DbSet<SamuraiBattle> SamuraiBattles { get; set; }
         public DbSet<SecretIdentity> SeccretIdentities { get; set; }
-        public DbSet<SecretIdentity> SeccretIdentities { get; set; }
+        public DbSet<BattleLog> BattleLogs { get; set; }
+        public DbSet<BattleEvents> BattleEvents { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -27,7 +30,16 @@ namespace EfSamurai.Data
                 .HasKey(x => new { x.SamuraiId, x.BattleId });
 
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Battle>()
+            .HasOne(p => p.BattleLog)
+            .WithOne(p => p.Battle)
+            .HasForeignKey<BattleLog>(b => b.BattleId);
+
+            base.OnModelCreating(modelBuilder);
         }
+
+   
 
     }
 }

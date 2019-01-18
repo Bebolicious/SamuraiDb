@@ -13,5 +13,6 @@ namespace EfSamurai.Domain
         public DateTime Startdate { get; set; }
         public DateTime Enddate { get; set; }
         public List<SamuraiBattle> SamuraiBattles { get; set; }
+        public BattleLog BattleLog { get; set; }
     }
 }

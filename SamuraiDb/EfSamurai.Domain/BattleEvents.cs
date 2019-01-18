@@ -4,7 +4,10 @@ using System.Text;
 
 namespace EfSamurai.Domain
 {
-    class BattleEvents
+    public class BattleEvents
     {
+        public int Id { get; set; }
+        public string Description { get; set; }
+
     }
 }
